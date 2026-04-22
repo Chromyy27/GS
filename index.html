@@ -143,9 +143,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
 @media(max-width:768px){
   .gc-gal{padding:80px 24px}
   .gc-gal-layout{flex-direction:column;gap:20px}
-  .gc-gal-before{width:100%}
-  .gc-gal-after{width:100%}
-  .gc-gal-arrow{padding:8px 0}
+  .gc-gal-before{width:100%;flex:none}
+  .gc-gal-after{width:100%;flex:none}
+  .gc-gal-arrow{padding:8px 0;flex:none}
   .gc-gal-arrow svg{width:48px;height:48px;transform:rotate(90deg)}
   @keyframes arrowPulse{0%,100%{transform:rotate(90deg) translateX(0);opacity:.4}50%{transform:rotate(90deg) translateX(6px);opacity:.7}}
 }
@@ -157,11 +157,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
 .gc-svc-count{font-family:'Playfair Display',serif;font-size:14px;color:rgba(241,250,238,.3)}
 .gc-svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px}
 .gc-svc-mower-track{position:relative;height:56px;margin:-40px 0 24px;overflow:hidden;pointer-events:none}
-.gc-svc-mower{position:absolute;bottom:0;left:0;width:72px;height:48px;color:var(--gc-mint);animation:mowerGo 9s linear infinite;will-change:transform}
+.gc-svc-mower{position:absolute;bottom:0;left:-80px;width:72px;height:48px;color:var(--gc-mint);animation:mowerGo 9s linear infinite,mowerBob 1.4s ease-in-out infinite alternate;will-change:left,transform}
 .gc-svc-mower svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 6px rgba(149,213,178,.25))}
 .gc-svc-mower-wheel{transform-origin:center;animation:mowerWheel .6s linear infinite}
-@keyframes mowerGo{0%{transform:translateX(-80px) translateY(0)}25%{transform:translateX(25vw) translateY(-2px)}50%{transform:translateX(50vw) translateY(0)}75%{transform:translateX(75vw) translateY(-2px)}100%{transform:translateX(calc(100vw + 80px)) translateY(0)}}
+@keyframes mowerGo{0%{left:-80px}100%{left:100%}}
+@keyframes mowerBob{to{transform:translateY(-2px)}}
 @keyframes mowerWheel{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.gc-svc-mower,.gc-svc-mower-wheel{animation:none}}
 .gc-card{background:rgba(13,31,21,.6);padding:48px 40px;position:relative;overflow:hidden;cursor:pointer;transition:all .5s cubic-bezier(.16,1,.3,1);border:1px solid rgba(149,213,178,.12);box-shadow:0 0 8px rgba(149,213,178,.06),inset 0 0 8px rgba(149,213,178,.03);animation:cardGlow 4s ease-in-out infinite alternate}
 .gc-card:nth-child(2){animation-delay:-.7s}
 .gc-card:nth-child(3){animation-delay:-1.4s}
@@ -265,8 +267,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
   .gc-side{display:none}
   .gc-miss,.gc-svc{padding:80px 24px}
   .gc-miss-cta{display:none}
-  .gc-svc-head{flex-direction:column;gap:12px}
+  .gc-svc-head{flex-direction:column;gap:12px;margin-bottom:56px;padding-bottom:28px}
+  .gc-svc-mower-track{height:42px;margin:-20px 0 18px}
+  .gc-svc-mower{width:56px;height:36px}
   .gc-card{padding:36px 28px}
+  .gc-grass{height:44px}
 }
 </style>
 </head>
@@ -543,20 +548,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
 (function(){
   var g=document.getElementById('gcGrass');
   if(!g) return;
-  var n=80,html='';
-  for(var i=0;i<n;i++){
-    var left=(i*100/n + (Math.random()-0.5)*1.6).toFixed(2);
-    var h=(18+Math.random()*34).toFixed(1);
-    var w=(3+Math.random()*4).toFixed(1);
-    var dur=(2.2+Math.random()*2.8).toFixed(2);
-    var delay=(-Math.random()*4).toFixed(2);
-    var hue=(130+Math.random()*25)|0;
-    var sat=(35+Math.random()*25)|0;
-    var l1=(18+Math.random()*8)|0;
-    var l2=(38+Math.random()*18)|0;
-    html+='<span class="gc-grass-blade" style="left:'+left+'%;width:'+w+'px;height:'+h+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;background:linear-gradient(to top,hsl('+hue+' '+sat+'% '+l1+'%),hsl('+hue+' '+sat+'% '+l2+'%))"></span>';
+  function render(){
+    var w=window.innerWidth;
+    var n=Math.max(24,Math.min(90,Math.round(w/14)));
+    var html='';
+    for(var i=0;i<n;i++){
+      var left=(i*100/n + (Math.random()-0.5)*1.6).toFixed(2);
+      var h=(18+Math.random()*34).toFixed(1);
+      var bw=(3+Math.random()*4).toFixed(1);
+      var dur=(2.2+Math.random()*2.8).toFixed(2);
+      var delay=(-Math.random()*4).toFixed(2);
+      var hue=(130+Math.random()*25)|0;
+      var sat=(35+Math.random()*25)|0;
+      var l1=(18+Math.random()*8)|0;
+      var l2=(38+Math.random()*18)|0;
+      html+='<span class="gc-grass-blade" style="left:'+left+'%;width:'+bw+'px;height:'+h+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;background:linear-gradient(to top,hsl('+hue+' '+sat+'% '+l1+'%),hsl('+hue+' '+sat+'% '+l2+'%))"></span>';
+    }
+    g.innerHTML=html;
   }
-  g.innerHTML=html;
+  render();
+  var t;
+  window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(render,200);});
 })();
 </script>
 
