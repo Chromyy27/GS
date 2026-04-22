@@ -199,22 +199,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
 .gc-contact-overlay.open .gc-cc:nth-child(4){transition-delay:.34s;animation-delay:-2.1s}
 .gc-contact-overlay.open .gc-cc:nth-child(5){transition-delay:.42s;animation-delay:-2.8s}
 @keyframes ccGlow{0%{border-color:rgba(149,213,178,.08);box-shadow:0 0 6px rgba(149,213,178,.03)}50%{border-color:rgba(149,213,178,.2);box-shadow:0 0 16px rgba(149,213,178,.08),0 0 36px rgba(45,158,95,.04)}100%{border-color:rgba(149,213,178,.08);box-shadow:0 0 6px rgba(149,213,178,.03)}}
-.gc-cc:hover{border-color:rgba(149,213,178,.35);box-shadow:0 0 24px rgba(149,213,178,.15),0 0 50px rgba(45,158,95,.07);animation:none;transform:translateY(-4px)!important}
+@media(hover:hover){
+  .gc-cc:hover{border-color:rgba(149,213,178,.35);box-shadow:0 0 24px rgba(149,213,178,.15),0 0 50px rgba(45,158,95,.07);animation:none;transform:translateY(-4px)!important}
+  .gc-cc-btn.ig:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(225,48,108,.3)}
+  .gc-cc-btn.tt:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+  .gc-cc-btn.wa:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(37,211,102,.3)}
+  .gc-cc-btn.tel:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(149,213,178,.3)}
+  .gc-cc-btn.em:hover{transform:translateY(-2px);background:rgba(149,213,178,.25);box-shadow:0 4px 20px rgba(149,213,178,.2)}
+}
 .gc-cc-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center}
 .gc-cc-icon svg{width:36px;height:36px}
 .gc-cc-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--gc-cream)}
 .gc-cc-desc{font-size:12px;font-weight:300;color:rgba(241,250,238,.45);line-height:1.6}
-.gc-cc-btn{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding:9px 18px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all .3s ease;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;white-space:nowrap}
+.gc-cc-btn{position:relative;z-index:1;touch-action:manipulation;-webkit-tap-highlight-color:rgba(149,213,178,.2);display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding:9px 18px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all .3s ease;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;white-space:nowrap}
 .gc-cc-btn.ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
-.gc-cc-btn.ig:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(225,48,108,.3)}
 .gc-cc-btn.tt{background:#000;color:#fff}
-.gc-cc-btn.tt:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .gc-cc-btn.wa{background:#25D366;color:#fff}
-.gc-cc-btn.wa:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(37,211,102,.3)}
 .gc-cc-btn.tel{background:var(--gc-mint);color:var(--gc-deep)}
-.gc-cc-btn.tel:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(149,213,178,.3)}
 .gc-cc-btn.em{background:rgba(149,213,178,.15);color:var(--gc-mint);border:1px solid rgba(149,213,178,.25)}
-.gc-cc-btn.em:hover{transform:translateY(-2px);background:rgba(149,213,178,.25);box-shadow:0 4px 20px rgba(149,213,178,.2)}
 /* ── Contact back button (mobile) ── */
 .gc-contact-back{display:none;align-items:center;gap:8px;background:rgba(149,213,178,.12);border:1px solid rgba(149,213,178,.3);border-radius:12px;color:var(--gc-mint);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;cursor:pointer;transition:all .3s ease;margin-bottom:28px;width:100%}
 .gc-contact-back:hover{background:rgba(149,213,178,.2);border-color:var(--gc-mint)}
