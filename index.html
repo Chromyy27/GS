@@ -251,6 +251,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
   .gc-foot-cols{flex-direction:column;gap:32px}
   .gc-foot-bottom{flex-direction:column;gap:16px;text-align:center}
 }
+.gc-grass{position:relative;height:56px;background:var(--gc-deep);overflow:hidden;pointer-events:none;line-height:0}
+.gc-grass::before{content:'';position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(to top,rgba(0,0,0,.25),transparent)}
+.gc-grass-blade{position:absolute;bottom:-1px;transform-origin:50% 100%;animation-name:gcSway;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate;clip-path:polygon(50% 0,100% 100%,0 100%)}
+@keyframes gcSway{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+@media(prefers-reduced-motion:reduce){.gc-grass-blade{animation:none}}
 
 /* ════════════════ RESPONSIVE ════════════════ */
 @media(max-width:768px){
@@ -531,6 +536,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--gc-deep);color:var(--gc-c
     </div>
   </div>
 </div>
+
+<div class="gc-grass" id="gcGrass" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var g=document.getElementById('gcGrass');
+  if(!g) return;
+  var n=80,html='';
+  for(var i=0;i<n;i++){
+    var left=(i*100/n + (Math.random()-0.5)*1.6).toFixed(2);
+    var h=(18+Math.random()*34).toFixed(1);
+    var w=(3+Math.random()*4).toFixed(1);
+    var dur=(2.2+Math.random()*2.8).toFixed(2);
+    var delay=(-Math.random()*4).toFixed(2);
+    var hue=(130+Math.random()*25)|0;
+    var sat=(35+Math.random()*25)|0;
+    var l1=(18+Math.random()*8)|0;
+    var l2=(38+Math.random()*18)|0;
+    html+='<span class="gc-grass-blade" style="left:'+left+'%;width:'+w+'px;height:'+h+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;background:linear-gradient(to top,hsl('+hue+' '+sat+'% '+l1+'%),hsl('+hue+' '+sat+'% '+l2+'%))"></span>';
+  }
+  g.innerHTML=html;
+})();
+</script>
 
 <script>
 (function() {
